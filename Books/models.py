@@ -33,3 +33,5 @@ class BorrowedBooks(models.Model):
     BorrowDate = models.DateField(default=timezone.now)
     ReturnDate = models.DateField(null=True, blank=True)
 
+    def __str__(self):
+        return f"{self.book.Title} (Borrowed by {self.user.Name})"
