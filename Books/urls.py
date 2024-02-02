@@ -1,5 +1,6 @@
 from django.urls import path
 from . import views
+from rest_framework.permissions import IsAuthenticated
 
 urlpatterns = [
     # Users
@@ -20,3 +21,7 @@ urlpatterns = [
     path('return/<int:pk>/', views.ReturnBookView.as_view(), name='return-book'),
     path('borrowed-books/', views.ListAllBorrowedBooksView.as_view(), name='list-all-borrowed-books'),
 ]
+
+for urlpattern in urlpatterns:
+    if hasattr(urlpattern, 'callback'):
+        urlpattern.callback.cls.permission_classes = [IsAuthenticated]
